@@ -1,0 +1,19 @@
+{% include 'users/includes/form_error.html' %}
+<form method="POST"
+  {% if is_edit %}
+    action="{% url 'posts:post_edit' form.instance.pk %}"
+  {% else %}
+    action="{% url 'posts:post_create' %}"
+  {% endif %}>
+  {% csrf_token %}
+  {% include 'users/includes/form.html' %}
+  <div class="d-flex justify-content-end">
+    <button type="submit" class="btn btn-primary">
+      {% if is_edit %}
+        Сохранить
+      {% else %}
+        Добавить
+      {% endif %}
+    </button>
+  </div>
+</form>
