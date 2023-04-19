@@ -1,11 +1,10 @@
 from django import forms
-
-from django.test import TestCase, Client
-from django.urls import reverse
 from django.conf import settings
+from django.test import Client, TestCase
+from django.urls import reverse
 
-from ..models import Post, Group, User
 from ..forms import PostForm
+from ..models import Group, Post, User
 
 
 class PostViewsTests(TestCase):
@@ -15,7 +14,6 @@ class PostViewsTests(TestCase):
         cls.author = User.objects.create_user(
             username='Test_name',
             email='test@gmail.com',
-            password='password',
         )
         cls.group = Group.objects.create(
             title='Первая группа',
@@ -150,7 +148,7 @@ class NewPostViewsTest(TestCase):
             slug='test_slug',
             description='Тестовое описание',
         )
-        cls.group2 = Group.objects.create(
+        cls.group_test_correct_entry = Group.objects.create(
             title='Вторая группа',
             slug='test_slug_two',
             description='Описание второй группы'
@@ -189,7 +187,9 @@ class NewPostViewsTest(TestCase):
         для которой не был предназначен.
         """
         response = self.guest_client.get(
-            reverse('posts:group_list', kwargs={'slug': self.group2.slug})
+            reverse('posts:group_list', kwargs={
+                'slug': self.group_test_correct_entry.slug
+            })
         )
         self.assertNotIn(self.new_post, response.context['page_obj'])
 

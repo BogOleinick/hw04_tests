@@ -1,7 +1,7 @@
-from django.test import TestCase, Client
-from posts.models import Group, Post, User
-
 from http import HTTPStatus
+
+from django.test import Client, TestCase
+from posts.models import Group, Post, User
 
 
 class UsersUrlTest(TestCase):
@@ -11,7 +11,6 @@ class UsersUrlTest(TestCase):
         cls.author = User.objects.create_user(
             username='Test_name',
             email='test@gmail.com',
-            password='password',
         )
         cls.group = Group.objects.create(
             title='ж',
@@ -23,10 +22,10 @@ class UsersUrlTest(TestCase):
             text='Тестовый пост',
             group=cls.group,
         )
+        cls.user = User.objects.create_user(username='HasNoName')
 
     def setUp(self):
         self.guest_client = Client()
-        self.user = User.objects.create_user(username='HasNoName')
         self.authorized_client = Client()
         self.authorized_client.force_login(self.user)
         self.url_names_guest = {

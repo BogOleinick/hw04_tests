@@ -2,8 +2,7 @@ from http import HTTPStatus
 
 from django.test import Client, TestCase
 from django.urls import reverse
-
-from posts.models import Post, Group, User
+from posts.models import Group, Post, User
 
 
 class UsersViewsTest(TestCase):
@@ -14,7 +13,6 @@ class UsersViewsTest(TestCase):
         cls.author = User.objects.create_user(
             username='Test_name',
             email='test@gmail.com',
-            password='password',
         )
         cls.author_client.force_login(cls.author)
         cls.group = Group.objects.create(
