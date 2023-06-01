@@ -1,6 +1,5 @@
 import os
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -19,6 +18,7 @@ ALLOWED_HOSTS = [
 
 
 INSTALLED_APPS = [
+    'sorl.thumbnail',
     'about.apps.AboutConfig',
     'core.apps.CoreConfig',
     'users.apps.UsersConfig',
@@ -99,8 +99,10 @@ USE_TZ = True
 
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'posts:index'
@@ -111,3 +113,12 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 NUMBER_POSTS = 10  # Replace 10 with your desired number of posts per page
 
 NUMBER_POSTS_TEST_3_PAGE = 3
+
+
+CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}

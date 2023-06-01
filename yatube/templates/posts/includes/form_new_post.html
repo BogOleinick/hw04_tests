@@ -1,5 +1,5 @@
 {% include 'users/includes/form_error.html' %}
-<form method="POST"
+<form method="POST" enctype="multipart/form-data"
   {% if is_edit %}
     action="{% url 'posts:post_edit' form.instance.pk %}"
   {% else %}
